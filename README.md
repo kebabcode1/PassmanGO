@@ -13,7 +13,8 @@ Install yay ( if you have not )
   cd yay
   
   makepkg -si
-Install PassmanGO
+
+## Install PassmanGO
   
   yay -S passmango-bin
 
