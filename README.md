@@ -14,11 +14,11 @@ Install yay ( if you have not )
   
   makepkg -si
 
-## Install PassmanGO
+## Install PassmanGO /Linux
   
   yay -S passmango-bin
 
-## Manual installation
+## Manual installation /Windows /Mac /Linux
 Clone the repo: git clone https://github.com/kebabcode1/PassmanGO.git 
 
 Install dependencies: go mod tidy 
@@ -27,4 +27,4 @@ Build: go build -o PassmanGO
 
 ## Post-installation/How to use
 
-To use it, simply type " passmango " in the console of your distro.
+To use it, simply type " passmango " in the console.
