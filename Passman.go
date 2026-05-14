@@ -19,6 +19,7 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/atotto/clipboard"
 	"golang.org/x/crypto/argon2"
 	"golang.org/x/term"
 )
@@ -382,12 +383,42 @@ func main() {
 
 		case "v":
 			entries := loadVault(key)
-
 			if len(entries) == 0 {
 				fmt.Println("Vault is empty.")
 				continue
 			}
 
+			fmt.Println("\n--- VAULT LIST ---")
+			// --- 1. THIS IS THE VIEW PART (MUST COME FIRST) ---
+			for i, e := range entries {
+				notesStr := e.Notes
+				if len(notesStr) > 20 {
+					notesStr = notesStr[:17] + "..."
+				}
+				// Decrypting Site and User so you can actually read them
+				decSite := decrypt(e.Site, key)
+				decUser := decrypt(e.User, key)
+				fmt.Printf("[%d] %s | %s | ******** | %s\n", i+1, decSite, decUser, notesStr)
+			}
+
+			// --- 2. THIS IS THE CLIPBOARD PART (MUST COME SECOND) ---
+			reader := bufio.NewReader(os.Stdin)
+			fmt.Print("\nEnter number to copy password: ")
+			input, _ := reader.ReadString('\n')
+			input = strings.TrimSpace(input)
+
+			choice, err := strconv.Atoi(input)
+			if err == nil && choice >= 1 && choice <= len(entries) {
+				selectedEntry := entries[choice-1]
+				passToCopy := decrypt(selectedEntry.Pass, key)
+				clipboard.WriteAll(passToCopy)
+
+				decSiteName := decrypt(selectedEntry.Site, key)
+				fmt.Printf("✔ Password for %s copied to clipboard!\n", decSiteName)
+			} else {
+				fmt.Println("Invalid selection.")
+			}
+			// End of clipboard
 			for i, e := range entries {
 				notesStr := e.Notes
 				if len(notesStr) > 20 {
