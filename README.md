@@ -1,6 +1,6 @@
 ## Description
 
-Password manager that is GO based. Runs in CLI with secure encryption protocols for safe password storage.
+Zero-knowledge, offline password manager, focused on security that is GO based. Runs in CLI with secure encryption protocols ssuch as AES-GCM for safe password storage.
 
 ## Installation
 
@@ -20,4 +20,4 @@ Install yay ( if you have not )
 
 ## Post-installation/How to use
 
-To use it, simply type " PassmanGO " in the console of your distro.
+To use it, simply type " passmango " in the console of your distro.
