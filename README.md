@@ -14,7 +14,7 @@ Install yay ( if you have not )
   
   makepkg -si
 
-## Install PassmanGO /Linux
+## Install PassmanGO /Arch Linux
   
   yay -S passmango-bin
 
